@@ -10,6 +10,12 @@ public class Stock {
 
 	private List<Product> products = Collections.synchronizedList(new ArrayList<>());
 	
+	public Stock() {}
+	
+	public Stock(List<Product> products) {
+		this.products = Collections.synchronizedList(new ArrayList<>(products));
+	}
+	
 	public Product push(int id) {
 		Product product = products.get(id);
 		products.remove(id);

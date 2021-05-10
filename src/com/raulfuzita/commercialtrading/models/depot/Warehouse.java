@@ -2,7 +2,6 @@ package com.raulfuzita.commercialtrading.models.depot;
 
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -44,9 +43,14 @@ public abstract class Warehouse {
 			return Collections.emptyMap();
 		return foreignStocks;
 	}
-
+	
 	public void setForeignStocks(Map<Long, Stock> foreignStocks) {
 		this.foreignStocks = Collections.synchronizedMap(new HashMap<>(foreignStocks));
+	}
+	
+	public boolean addForeignStocks(long companyId, Stock stock) {
+		Stock result = this.foreignStocks.putIfAbsent(companyId, stock);
+		return result == null;
 	}
 
 	@Override
