@@ -2,18 +2,11 @@ package com.raulfuzita.commercialtrading.models.products;
 
 public class Item implements Product {
 	
-	private long compId;
 	private double price;
 	
-	public Item(long compId, double price) {
+	public Item(double price) {
 		super();
-		this.compId = compId;
 		this.price = price;
-	}
-
-	@Override
-	public double getCompanyId() {
-		return compId;
 	}
 
 	@Override
@@ -23,6 +16,6 @@ public class Item implements Product {
 
 	@Override
 	public String toString() {
-		return "Item [compId=" + compId + ", price=" + price + "]";
+		return "Item [price=" + price + "]";
 	}
 }

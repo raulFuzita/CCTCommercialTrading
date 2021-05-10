@@ -2,9 +2,10 @@ package com.raulfuzita.commercialtrading.models.depot;
 
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 import com.raulfuzita.commercialtrading.models.stocks.NullStock;
 import com.raulfuzita.commercialtrading.models.stocks.Stock;
@@ -12,12 +13,12 @@ import com.raulfuzita.commercialtrading.models.stocks.Stock;
 public abstract class Warehouse {
 	
 	private Stock stocks;
-	private Map<Long, Stock> foreignStocks;
+	private ConcurrentMap<Long, Stock> foreignStocks;
 	
 	abstract static class Builder<T extends Builder<T>> {
 		
 		Stock stocks;
-		Map<Long, Stock> foreignStocks;
+		ConcurrentMap<Long, Stock> foreignStocks;
 		
 		public T stocks(Stock stocks) {
 			this.stocks = stocks;
@@ -40,13 +41,16 @@ public abstract class Warehouse {
 	}
 
 	public Map<Long, Stock> getForeignStocks() {
-		if (foreignStocks == null)
-			return Collections.emptyMap();
-		return foreignStocks;
+		return foreignStocks != null ? foreignStocks : Collections.emptyMap();
 	}
-
+	
 	public void setForeignStocks(Map<Long, Stock> foreignStocks) {
-		this.foreignStocks = Collections.synchronizedMap(new HashMap<>(foreignStocks));
+		this.foreignStocks = new ConcurrentHashMap<>(foreignStocks);
+	}
+	
+	public boolean addForeignStocks(long companyId, Stock stock) {
+		Stock result = this.foreignStocks.putIfAbsent(companyId, stock);
+		return result == null;
 	}
 
 	@Override
