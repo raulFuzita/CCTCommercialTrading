@@ -3,10 +3,12 @@ package com.raulfuzita.commercialtrading.models.depot;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.LongUnaryOperator;
 
+import com.raulfuzita.commercialtrading.models.companies.Company;
 import com.raulfuzita.commercialtrading.models.products.Product;
 
 public class Depot extends Warehouse {
 	
+	private Company company;
 	private AtomicLong balance;
 
 	public static class Builder extends Warehouse.Builder<Builder> {
