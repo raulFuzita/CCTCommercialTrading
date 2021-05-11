@@ -8,15 +8,21 @@ import com.raulfuzita.commercialtrading.models.products.Product;
 
 public class Depot extends Warehouse {
 	
-	private Company company;
+	private final Company company;
 	private AtomicLong balance;
 
 	public static class Builder extends Warehouse.Builder<Builder> {
 		
+		private Company company;
 		private AtomicLong balance;
 		
 		public Builder(long balance) {
 			this.balance = new AtomicLong(balance);
+		}
+		
+		public Builder company(Company company) {
+			this.company = company;
+			return this;
 		}
 
 		@Override
@@ -25,17 +31,22 @@ public class Depot extends Warehouse {
 		}
 
 		@Override
-		protected Builder self() {
+		public Builder self() {
 			return this;
 		}
 		
 	}
 	
-	private Depot(Builder builder) {
+	protected Depot(Builder builder) {
 		super(builder);
 		balance			= builder.balance;
+		company			= builder.company;
 	}
 	
+	public Company getCompany() {
+		return company;
+	}
+
 	public long getBalance() {
 		return this.balance.get();
 	}

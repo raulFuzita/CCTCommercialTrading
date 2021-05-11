@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import com.raulfuzita.commercialtrading.models.products.Item;
 import com.raulfuzita.commercialtrading.models.products.Product;
 
 public class Stock {
@@ -16,6 +17,13 @@ public class Stock {
 		this.products = Collections.synchronizedList(new ArrayList<>(products));
 	}
 	
+<<<<<<< HEAD
+=======
+	public Product peek(int id) {
+		return products.get(id);
+	}
+	
+>>>>>>> ef7341563cede4dba6a7bd3b1b0088ef4d1a29b9
 	public Product push(int id) {
 		Product product = products.get(id);
 		products.remove(id);
