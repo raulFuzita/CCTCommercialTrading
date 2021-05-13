@@ -1,9 +1,7 @@
 package com.raulfuzita.commercialtrading.testunit;
 
 import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -12,7 +10,6 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
 
 import org.junit.jupiter.api.Test;
 
@@ -22,7 +19,7 @@ class TestDepot {
 
 	@Test
 	void balanceOperationsNoThread() {
-		Depot d = new Depot.Builder(100).build();
+		Depot d = new Depot.Builder(1).balance(100).build();
 		System.out.println("Depot balance: " + d.getBalance());
 		d.withdrawCashe(50);
 		d.depositCashe(30);
@@ -36,7 +33,7 @@ class TestDepot {
 		long initBalance = 200;
 		int stopAt = 200;
 		
-		Depot d = new Depot.Builder(initBalance).build();
+		Depot d = new Depot.Builder(1).balance(initBalance).build();
 		
 		ExecutorService es = Executors.newFixedThreadPool(5);
 		Set<Callable<Integer>> callables = new HashSet<>();

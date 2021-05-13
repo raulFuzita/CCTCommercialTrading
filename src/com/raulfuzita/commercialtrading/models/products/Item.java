@@ -1,28 +1,23 @@
 package com.raulfuzita.commercialtrading.models.products;
 
-public class Item implements Product {
+public final class Item implements Product {
 	
-	private long compId;
-	private double price;
+	private final long price;
+	private final long delivery;
 	
-	public Item(long compId, double price) {
-		super();
-		this.compId = compId;
+	public Item(long price, long delivery) {
 		this.price = price;
+		this.delivery = delivery;
 	}
 
 	@Override
-	public double getCompanyId() {
-		return compId;
-	}
-
-	@Override
-	public double getPrice() {
-		return price;
+	public long getCost() {
+		return price + delivery;
 	}
 
 	@Override
 	public String toString() {
-		return "Item [compId=" + compId + ", price=" + price + "]";
+		return "Item [price=" + price + ", delivery=" + delivery + "]";
 	}
+	
 }

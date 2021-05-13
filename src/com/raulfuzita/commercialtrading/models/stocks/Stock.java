@@ -1,14 +1,13 @@
 package com.raulfuzita.commercialtrading.models.stocks;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import com.raulfuzita.commercialtrading.models.products.Product;
 
 public class Stock {
 
-	private List<Product> products = Collections.synchronizedList(new ArrayList<>());
+	protected List<Product> products = new CopyOnWriteArrayList<>();
 	
 	public Product push(int id) {
 		Product product = products.get(id);
@@ -16,12 +15,16 @@ public class Stock {
 		return product;
 	}
 	
-	public void pull(Product product) {
+	public Product peek(int id) {
+		return products.get(id);
+	}
+	
+	public synchronized void pull(Product product) {
 		products.add(product);
 	}
 	
 	public void addListProducts(List<Product> products) {
-		this.products = Collections.synchronizedList(new ArrayList<>(products));
+		this.products = new CopyOnWriteArrayList<>(products);
 	}
 	
 	public int size() {
