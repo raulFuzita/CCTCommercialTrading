@@ -29,7 +29,7 @@ public final class AmilcarsDepotBalance50To100 extends AbstractFactory<Depot> {
 				.stocks(stock)
 				.tradeMarket(tradeMarket)
 				.build();
-		tradeMarket.add(depotTrader);
+		tradeMarket.register(depotTrader);
 		return depotTrader;
 	}
 

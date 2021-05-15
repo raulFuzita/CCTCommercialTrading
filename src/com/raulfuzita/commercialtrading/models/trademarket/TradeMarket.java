@@ -21,11 +21,11 @@ public class TradeMarket {
 		this.observers = new CopyOnWriteArrayList<>(observers);
 	}
 	
-	public void add(Depot e) {
+	public void register(Depot e) {
 		this.observers.add(e);
 	}
 	
-	public void remove(Depot e) {
+	public void unregister(Depot e) {
 		this.observers.remove(e);
 	}
 
