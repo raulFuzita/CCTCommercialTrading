@@ -3,11 +3,11 @@ package com.raulfuzita.commercialtrading.models.company;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import com.raulfuzita.commercialtrading.models.depot.Depot;
+import com.raulfuzita.commercialtrading.models.depot.DepotTrader;
 
 public class CCTCompany extends Company {
 	
-	private List<Depot> depots = new CopyOnWriteArrayList<>();
+	private List<DepotTrader> depots = new CopyOnWriteArrayList<>();
 
 	public CCTCompany(long id, String name) {
 		super(id, name);
@@ -17,11 +17,11 @@ public class CCTCompany extends Company {
 		super(name);
 	}
 
-	public List<Depot> getDepots() {
+	public List<DepotTrader> getDepots() {
 		return depots;
 	}
 
-	public void setDepots(List<Depot> depots) {
+	public void setDepots(List<DepotTrader> depots) {
 		this.depots = new CopyOnWriteArrayList<>(depots);
 	}
 }

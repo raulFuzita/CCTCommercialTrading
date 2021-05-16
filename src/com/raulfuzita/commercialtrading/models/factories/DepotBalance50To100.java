@@ -3,34 +3,36 @@ package com.raulfuzita.commercialtrading.models.factories;
 import java.util.concurrent.ThreadLocalRandom;
 
 import com.raulfuzita.commercialtrading.models.depot.Depot;
+import com.raulfuzita.commercialtrading.models.depot.DepotTrader;
 import com.raulfuzita.commercialtrading.models.products.Product;
 import com.raulfuzita.commercialtrading.models.stocks.Stock;
 import com.raulfuzita.commercialtrading.models.trademarket.TradeMarket;
 
-public final class AmilcarsDepotBalance50To100 extends AbstractFactory<Depot> {
+public final class DepotBalance50To100 extends AbstractFactory<DepotTrader> {
 
 	private final long companyId;
-	private TradeMarket tradeMarket;
+	private TradeMarket<DepotTrader> market;
 	private Factory<Product> factory;
 	
-	public AmilcarsDepotBalance50To100
-	(long companyId, TradeMarket tradeMarket, Factory<Product> factory) {
+	public DepotBalance50To100
+	(long companyId, TradeMarket<DepotTrader> tradeMarket, Factory<Product> factory) {
 		this.companyId = companyId;
-		this.tradeMarket = tradeMarket;
+		this.market = tradeMarket;
 		this.factory = factory;
 	}
 
 	@Override
-	protected Depot create() {
+	protected DepotTrader create() {
 		Stock stock = new Stock();
 		stock.addListProducts(factory.makeMany(50));
 		Depot depotTrader = new Depot.Builder(companyId)
 				.balance(generateBalance())
 				.stocks(stock)
-				.tradeMarket(tradeMarket)
 				.build();
-		tradeMarket.register(depotTrader);
-		return depotTrader;
+		DepotTrader trader = new DepotTrader(depotTrader);
+		trader.setMarket(market);
+		market.register(trader);
+		return trader;
 	}
 
 	private long generateBalance() {

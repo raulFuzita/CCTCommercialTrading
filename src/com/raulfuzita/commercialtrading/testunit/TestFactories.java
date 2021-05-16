@@ -6,8 +6,8 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import com.raulfuzita.commercialtrading.models.depot.Depot;
-import com.raulfuzita.commercialtrading.models.factories.AmilcarsDepotBalance50To100;
+import com.raulfuzita.commercialtrading.models.depot.DepotTrader;
+import com.raulfuzita.commercialtrading.models.factories.DepotBalance50To100;
 import com.raulfuzita.commercialtrading.models.factories.Factory;
 import com.raulfuzita.commercialtrading.models.factories.ProductPrice1To10;
 import com.raulfuzita.commercialtrading.models.products.Item;
@@ -29,26 +29,26 @@ class TestFactories {
 	
 	@Test
 	void testAmilcarsDepotFactoryBalance1To10() {
-		TradeMarket tk = new TradeMarket();
-		Factory<Depot> pf = new AmilcarsDepotBalance50To100(1, tk, new ProductPrice1To10());
-		Depot depot = pf.makeOne();
-		List<Depot> depots = pf.makeMany(50);
+		TradeMarket<DepotTrader> tk = new TradeMarket<>();
+		Factory<DepotTrader> pf = new DepotBalance50To100(1, tk, new ProductPrice1To10());
+		DepotTrader trader = pf.makeOne();
+		List<DepotTrader> traders = pf.makeMany(50);
 		
-		int s1 = depot.stockSize();
-		int s2 = depots.get(0).stockSize();
+		int s1 = trader.get().stockSize();
+		int s2 = traders.get(0).get().stockSize();
 		
 		assertTrue(s1 == 50 && s2 == 50);
 	}
 	
 	@Test
 	void testAmilcarsDepotPriceUpTo20() {
-		TradeMarket tk = new TradeMarket();
-		Factory<Depot> pf = new AmilcarsDepotBalance50To100(1, tk, new ProductPrice1To10());
-		Depot depot = pf.makeOne();
-		List<Depot> depots = pf.makeMany(50);
+		TradeMarket<DepotTrader> tk = new TradeMarket<>();
+		Factory<DepotTrader> pf = new DepotBalance50To100(1, tk, new ProductPrice1To10());
+		DepotTrader trader = pf.makeOne();
+		List<DepotTrader> traders = pf.makeMany(50);
 		
-		Product p1 = depot.getStocks().peek(0);
-		Product p2 = depots.get(0).getStocks().peek(0);
+		Product p1 = trader.get().getStocks().peek(0);
+		Product p2 = traders.get(0).get().getStocks().peek(0);
 		
 		assertTrue(p1.getCost() > 0 && p1.getCost() < 21);
 		assertTrue(p2.getCost() > 0 && p2.getCost() < 21);
