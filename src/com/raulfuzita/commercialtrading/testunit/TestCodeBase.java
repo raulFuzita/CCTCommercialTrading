@@ -66,7 +66,7 @@ class TestCodeBase {
 			this.plain = plain;
 		}
 		@Override public String getRecord() {
-			return "Record\n" + plain.getRecord();
+			return "PlainRecord\n" + plain.getRecord();
 		}
 		
 	}

@@ -7,4 +7,14 @@ public class EmptyRecord implements Recordable {
 		return "";
 	}
 
+	@Override
+	public long getCompBuyerId() {
+		return 0;
+	}
+
+	@Override
+	public long getCompSellerId() {
+		return 0;
+	}
+
 }

@@ -59,9 +59,9 @@ public class Depot extends Warehouse {
 
 	@Override
 	public String toString() {
-		return "Depot [companyId=" + companyId + ", getStocks()=" + getStocks() 
-				+ ", getForeignStocks()=" + getForeignStocks() 
-				+ ", getBalance()=" + getBalance() + "]";
+		return "Depot [companyId=" + companyId + ", nativeStock=" + getStocks() 
+				+ ", externalStock=" + getForeignStocks() 
+				+ ", balance=" + getBalance() + "]";
 	}
 	
 }

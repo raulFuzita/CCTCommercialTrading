@@ -5,21 +5,23 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import com.raulfuzita.commercialtrading.models.products.Product;
 import com.raulfuzita.commercialtrading.models.trademarket.Market;
+import com.raulfuzita.commercialtrading.models.trademarket.records.EmptyRecord;
 import com.raulfuzita.commercialtrading.models.trademarket.records.Recordable;
 
 public class TradeFacade {
 	
-	protected Recordable record;
-	
-	public TradeFacade(Recordable record) {
-		this.record = record;
-	}
+	protected Recordable record = new EmptyRecord();
 
 	public Recordable trade(DepotTrader trader, Market<DepotTrader> market) {
-		Depot buyer = trader.get();
 		List<DepotTrader> sellers = market.getTraders();
+		Depot buyer = trader.get();
+		
 		int i1 = ThreadLocalRandom.current().nextInt(0, sellers.size());
 		DepotTrader seller = sellers.get(i1);
+		
+		if (buyer.getId() == seller.get().getId()) {
+			return this.record;
+		}
 		
 		if (!sellerHasProduct(seller)) {
 			market.unregister(seller);
@@ -32,7 +34,7 @@ public class TradeFacade {
 			Product product = seller.get().peek(i2);
 			if (buyer.withdrawCashe(product.getCost())) {
 				
-				TradeRecord newRecord = new TradeRecord(record);
+				TradeRecord newRecord = new TradeRecord();
 				newRecord.setRecord(buyer,seller.get(),product);
 				
 				seller.get().depositCashe(product.getCost());
@@ -51,6 +53,6 @@ public class TradeFacade {
 	}
 	
 	public boolean buyerHasSpace(Depot buyer) {
-		return buyer.foreignStockSize() < 40;
+		return buyer.foreignStockSize() < 41;
 	}
 }
