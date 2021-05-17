@@ -19,9 +19,9 @@ class TestDepot {
 
 	@Test
 	void balanceOperationsNoThread() {
-		Depot d = new Depot.Builder(100).build();
+		Depot d = new Depot.Builder(1).balance(100).build();
 		System.out.println("Depot balance: " + d.getBalance());
-		d.withdrawCashe(50);
+		d.withdrawCash(50);
 		d.depositCashe(30);
 		long balance = d.getBalance();
 		assertTrue("Balance is not as expected: " + balance, 80 == balance);
@@ -33,7 +33,7 @@ class TestDepot {
 		long initBalance = 200;
 		int stopAt = 200;
 		
-		Depot d = new Depot.Builder(initBalance).build();
+		Depot d = new Depot.Builder(1).balance(initBalance).build();
 		
 		ExecutorService es = Executors.newFixedThreadPool(5);
 		Set<Callable<Integer>> callables = new HashSet<>();
@@ -65,7 +65,7 @@ class TestDepot {
 			public Integer call() throws Exception {
 				int i = 0;
 				while (i < stopAt) {
-					d.withdrawCashe(1);
+					d.withdrawCash(1);
 					i++;
 				} return -i;
 			}
