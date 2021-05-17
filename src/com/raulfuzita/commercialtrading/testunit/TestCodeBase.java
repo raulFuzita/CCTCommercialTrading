@@ -40,4 +40,34 @@ class TestCodeBase {
 		}
 	}
 
+	
+	@Test
+	void testDecorator() {
+		Recordable p = new PlainRecord();
+		p = new Record(p);
+		p = new Record(p);
+		System.out.println(p.getRecord());
+		
+	}
+	
+	interface Recordable {
+		String getRecord();
+	}
+	
+	class PlainRecord implements Recordable {
+		@Override public String getRecord() {
+			return "Plain\n";
+		}
+	}
+	
+	class Record implements Recordable {
+		private Recordable plain;
+		public Record(Recordable plain) {
+			this.plain = plain;
+		}
+		@Override public String getRecord() {
+			return "Record\n" + plain.getRecord();
+		}
+		
+	}
 }

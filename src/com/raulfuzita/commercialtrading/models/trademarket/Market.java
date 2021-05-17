@@ -8,4 +8,5 @@ public interface Market<E> {
 	void setTraders(List<E> traders);
 	void register(E trader);
 	void unregister(E trader);
+	int size();
 }

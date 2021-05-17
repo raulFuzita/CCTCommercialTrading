@@ -7,6 +7,9 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+
+import com.raulfuzita.commercialtrading.models.trademarket.records.Recordable;
 
 public class TradeMarket<E extends Callable<Recordable>> implements Market<E> {
 
@@ -14,13 +17,17 @@ public class TradeMarket<E extends Callable<Recordable>> implements Market<E> {
 
 	public List<Future<Recordable>> openMarket() throws InterruptedException, ExecutionException {
 		ExecutorService es = Executors.newSingleThreadExecutor();
+		
 		List<Future<Recordable>> record = es.invokeAll(traders);
+		
 		es.shutdown();
+		
 		System.out.println("Records: " + record.size());
 		for (Future<Recordable> future : record) {
 			System.out.println(future.get().getRecord());
 		}
 		es = null;
+		System.out.println("Market size (Last): " + traders.size());
 		return record;
 	}
 
@@ -42,6 +49,11 @@ public class TradeMarket<E extends Callable<Recordable>> implements Market<E> {
 	@Override
 	public void unregister(E trader) {
 		this.traders.remove(trader);
+	}
+
+	@Override
+	public int size() {
+		return this.traders.size();
 	}
 
 }

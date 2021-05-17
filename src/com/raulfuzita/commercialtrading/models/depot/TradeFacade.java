@@ -5,37 +5,52 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import com.raulfuzita.commercialtrading.models.products.Product;
 import com.raulfuzita.commercialtrading.models.trademarket.Market;
-import com.raulfuzita.commercialtrading.models.trademarket.Recordable;
+import com.raulfuzita.commercialtrading.models.trademarket.records.Recordable;
 
 public class TradeFacade {
+	
+	protected Recordable record;
+	
+	public TradeFacade(Recordable record) {
+		this.record = record;
+	}
 
-	public Recordable trade(Depot buyer, Market<DepotTrader> market) {
+	public Recordable trade(DepotTrader trader, Market<DepotTrader> market) {
+		Depot buyer = trader.get();
 		List<DepotTrader> sellers = market.getTraders();
 		int i1 = ThreadLocalRandom.current().nextInt(0, sellers.size());
 		DepotTrader seller = sellers.get(i1);
-		if (isValidTrade(buyer, seller)) {
+		
+		if (!sellerHasProduct(seller)) {
+			market.unregister(seller);
+			return this.record;
+		}
+		
+		if (buyerHasSpace(buyer)) {
 			long companyId = seller.get().getCompanyId();
 			int i2 = ThreadLocalRandom.current().nextInt(0, seller.get().stockSize());
 			Product product = seller.get().peek(i2);
 			if (buyer.withdrawCashe(product.getCost())) {
 				
-				Recordable record = new TradeRecord(
-						buyer.getId(),
-						seller.get().getId(),
-						product);
+				TradeRecord newRecord = new TradeRecord(record);
+				newRecord.setRecord(buyer,seller.get(),product);
 				
 				seller.get().depositCashe(product.getCost());
 				buyer.buy(companyId, seller.get().sell(i2));
-				return record;
+				return newRecord;
 			}
 		}
 		
-		return null;
+		market.unregister(trader);
+		return this.record;
 	}
 	
-	public boolean isValidTrade(Depot buyer, DepotTrader seller) {
+	public boolean sellerHasProduct(DepotTrader seller) {
 		return seller.get().stockSize() > 14 
-				&& seller.get().stockSize() < 51
-				&& buyer.foreignStockSize() < 41;
+				&& seller.get().stockSize() < 51;
+	}
+	
+	public boolean buyerHasSpace(Depot buyer) {
+		return buyer.foreignStockSize() < 40;
 	}
 }
