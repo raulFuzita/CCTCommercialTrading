@@ -7,6 +7,9 @@ import java.util.concurrent.Future;
 import com.raulfuzita.commercialtrading.models.depot.DepotTrader;
 import com.raulfuzita.commercialtrading.models.trademarket.records.Recordable;
 
+/**
+ * @author raul macedo fuzita
+ */
 public class CompanyDetailsFacade {
 
 	public void details(CCTCompany company) {

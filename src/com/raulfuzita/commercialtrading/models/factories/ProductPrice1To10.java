@@ -16,3 +16,4 @@ public class ProductPrice1To10 extends AbstractFactory<Product> {
 		return ThreadLocalRandom.current().nextLong(1, 11);
 	}
 }
+

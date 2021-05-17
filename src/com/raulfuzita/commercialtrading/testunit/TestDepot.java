@@ -21,7 +21,7 @@ class TestDepot {
 	void balanceOperationsNoThread() {
 		Depot d = new Depot.Builder(1).balance(100).build();
 		System.out.println("Depot balance: " + d.getBalance());
-		d.withdrawCashe(50);
+		d.withdrawCash(50);
 		d.depositCashe(30);
 		long balance = d.getBalance();
 		assertTrue("Balance is not as expected: " + balance, 80 == balance);
@@ -65,7 +65,7 @@ class TestDepot {
 			public Integer call() throws Exception {
 				int i = 0;
 				while (i < stopAt) {
-					d.withdrawCashe(1);
+					d.withdrawCash(1);
 					i++;
 				} return -i;
 			}

@@ -10,6 +10,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.junit.jupiter.api.Test;
 
@@ -69,5 +70,12 @@ class TestCodeBase {
 			return "PlainRecord\n" + plain.getRecord();
 		}
 		
+	}
+	
+	@Test
+	void testConvertIntToAsciiTable() {
+		AtomicInteger num = new AtomicInteger(65);
+		char ascii = (char) num.get();
+		assertEquals("A", String.valueOf(ascii));
 	}
 }

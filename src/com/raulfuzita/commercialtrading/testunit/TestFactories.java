@@ -6,7 +6,9 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import com.raulfuzita.commercialtrading.models.company.CCTCompany;
 import com.raulfuzita.commercialtrading.models.depot.DepotTrader;
+import com.raulfuzita.commercialtrading.models.factories.CCTCompanyDepots50Factory;
 import com.raulfuzita.commercialtrading.models.factories.DepotBalance50To100;
 import com.raulfuzita.commercialtrading.models.factories.Factory;
 import com.raulfuzita.commercialtrading.models.factories.ProductPrice1To10;
@@ -52,5 +54,18 @@ class TestFactories {
 		
 		assertTrue(p1.getCost() > 0 && p1.getCost() < 21);
 		assertTrue(p2.getCost() > 0 && p2.getCost() < 21);
+	}
+	
+	@Test
+	void testCCTCompanyDepots50Factory() {
+		TradeMarket<DepotTrader> tk = new TradeMarket<>();
+		ProductPrice1To10 pp1To10 = new ProductPrice1To10();
+		int unit = 30;
+		CCTCompanyDepots50Factory factory = new CCTCompanyDepots50Factory(tk, pp1To10);
+		List<CCTCompany> companies = factory.makeMany(unit);
+		for (CCTCompany company : companies) {
+			System.out.println("Company Name: " + company.getName());
+		}
+		assertTrue(companies.size() == unit);
 	}
 }

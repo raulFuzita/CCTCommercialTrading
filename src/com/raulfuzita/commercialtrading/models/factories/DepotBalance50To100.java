@@ -6,16 +6,20 @@ import com.raulfuzita.commercialtrading.models.depot.Depot;
 import com.raulfuzita.commercialtrading.models.depot.DepotTrader;
 import com.raulfuzita.commercialtrading.models.products.Product;
 import com.raulfuzita.commercialtrading.models.stocks.Stock;
+import com.raulfuzita.commercialtrading.models.trademarket.Market;
 import com.raulfuzita.commercialtrading.models.trademarket.TradeMarket;
 
+/**
+ * @author raul macedo fuzita
+ */
 public final class DepotBalance50To100 extends AbstractFactory<DepotTrader> {
 
 	private final long companyId;
-	private TradeMarket<DepotTrader> market;
+	private Market<DepotTrader> market;
 	private Factory<Product> factory;
 	
 	public DepotBalance50To100
-	(long companyId, TradeMarket<DepotTrader> tradeMarket, Factory<Product> factory) {
+	(long companyId, Market<DepotTrader> tradeMarket, Factory<Product> factory) {
 		this.companyId = companyId;
 		this.market = tradeMarket;
 		this.factory = factory;

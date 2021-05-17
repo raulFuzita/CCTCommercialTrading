@@ -8,6 +8,9 @@ import com.raulfuzita.commercialtrading.models.trademarket.Market;
 import com.raulfuzita.commercialtrading.models.trademarket.records.EmptyRecord;
 import com.raulfuzita.commercialtrading.models.trademarket.records.Recordable;
 
+/**
+ * @author raul macedo fuzita
+ */
 public class TradeFacade {
 	
 	protected Recordable record = new EmptyRecord();
@@ -32,7 +35,7 @@ public class TradeFacade {
 			long companyId = seller.get().getCompanyId();
 			int i2 = ThreadLocalRandom.current().nextInt(0, seller.get().stockSize());
 			Product product = seller.get().peek(i2);
-			if (buyer.withdrawCashe(product.getCost())) {
+			if (buyer.withdrawCash(product.getCost())) {
 				
 				TradeRecord newRecord = new TradeRecord();
 				newRecord.setRecord(buyer,seller.get(),product);

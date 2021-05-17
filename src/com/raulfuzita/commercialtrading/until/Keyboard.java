@@ -8,8 +8,17 @@ public class Keyboard {
 		System.out.println(prompt);
 		Scanner scan = new Scanner(System.in);
 		String content = scan.nextLine();
-		scan.close();
-		scan = null;
 		return content;
+	}
+	
+	public static int inputInt(String prompt) {
+		System.out.println(prompt);
+		try {
+			Scanner scan = new Scanner(System.in);
+			return scan.nextInt();
+		} catch (Exception e) {
+			System.out.println("\nYou must enter a number, please try again.");
+			return -1;
+		}
 	}
 }

@@ -3,6 +3,9 @@ package com.raulfuzita.commercialtrading.models.factories;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author raul macedo fuzita
+ */
 public abstract class AbstractFactory<T> implements Factory<T> {
 
 	@Override
