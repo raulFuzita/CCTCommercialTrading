@@ -1,6 +1,5 @@
 package com.raulfuzita.commercialtrading.view;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
@@ -13,6 +12,7 @@ import com.raulfuzita.commercialtrading.until.Keyboard;
 public class MainMenuView {
 	
 	private RecordDataFacade recordData = new RecordDataFacade();
+	private FileManagerView fileManager;
 	private CompanyActionsView companyActions;
 	private List<Future<Recordable>> allRecords;
 	private List<CCTCompany> companies;
@@ -22,14 +22,16 @@ public class MainMenuView {
 		this.allRecords = allRecords;
 		this.companies = companies;
 		this.companyActions = new CompanyActionsView(allRecords, companies);
+		this.fileManager = new FileManagerView(allRecords);
 	}
 
 	private void displayMenu()  {
 		System.out.println("\n=================== MAIN MENU ===================");
-		System.out.println("| (A) See all transactions						|");
-		System.out.println("| (B) All compay's transactions					|");
-		System.out.println("| (C) Company's details							|");
-		System.out.println("| (X) Exit										|");
+		System.out.println("| (A) See all transactions                      |");
+		System.out.println("| (B) All compay's transactions                 |");
+		System.out.println("| (C) Company's details                         |");
+		System.out.println("| (D) Save transactions in a file               |");
+		System.out.println("| (X) Exit                                      |");
 		System.out.println("-------------------------------------------------");
 	}
 	
@@ -47,6 +49,10 @@ public class MainMenuView {
 	
 			case "C":
 				companyActions.companyDetails();
+				break;
+				
+			case "D":
+				fileManager.displayMenu();
 				break;
 	
 			case "X":
